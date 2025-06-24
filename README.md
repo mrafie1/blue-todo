@@ -44,3 +44,32 @@ Open your terminal and run the following command to install and run the app:
    
 
 # Features
+## Creating tasks: titles and descriptions!
+
+Users will be able to input task titles and their descriptions on the left side of the application. 
+
+The application will detect and display an error screen when:
+- Empty task title
+- Title and description going over their respective character limit
+![](documentation/potential_errors.gif)
+
+## After creating a task: completing, deleting, and scrolling through tasks
+
+After creating a task, the task will appear on the right side of the application, below any previous created tasks.
+![](documentation/create_a_task.gif)
+
+Users are then able to scroll through all of the tasks they've created, complete and delete tasks, and track their task progress on the left side of the application.
+![](documentation/scroll_complete.gif)
+
+## Inspecting tasks: returning to home, completing a task, and then removing it
+
+By pressing the 'check notes!' button widget next to the desired task, users can:
+- View task title and description
+- Return to homepage
+- Toggle complete
+- Remove the task
+![](documentation/inspect_complete_delete.gif)
+
+
+# Conclusion
+Thank you for reading through all of this documentation - this took way too much time to complete. I hope you enjoy the app!
