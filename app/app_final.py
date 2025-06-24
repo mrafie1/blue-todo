@@ -186,7 +186,7 @@ class GUI:
         self.root.title('blue-todo')
         self.root.config(bg=self.blue1)
 
-        img = ImageTk.PhotoImage(Image.open("app/src/icon.png"))
+        img = ImageTk.PhotoImage(Image.open("src/icon.png"))
         self.root.iconphoto(False, img)
 
         # Other
@@ -414,7 +414,7 @@ class GUI:
     @staticmethod
     def load_messages(self):
         # Load messages from src folder
-        with open("app/src/messages.json", 'r') as f:
+        with open("src/messages.json", 'r') as f:
             data = json.load(f)
 
         for msg in data['messages']:
