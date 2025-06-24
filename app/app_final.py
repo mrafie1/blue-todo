@@ -2,9 +2,15 @@
 Muhammad Rafie 2025
 
 =====READ=====
-This will is my first solo-project working with tkinter!
-This is a simple To-Do App
+This is my first solo project working with tkinter!
+This is a simple To-Do App allowing users to:
 
+- Create tasks with titles and descriptions
+- Have multiple tasks to toggle complete, delete, and view descriptions
+- See total task progression
+- View randomly changing motivational messages (to keep you not-blue) :)
+
+I hope you enjoy! There's more to come.
 ==============
 """
 import json
@@ -25,7 +31,8 @@ class Todo(tk.Frame):
         self.title = " ".join(title.split())
         self.desc = " ".join(desc.split())
         self.root = root
-
+        
+        # Configure Right Frame Goal Title Display
         display_text = self.title
         if len(display_text) > 14:
             display_text = display_text[0:11] + '...'
@@ -53,15 +60,16 @@ class Todo(tk.Frame):
 
         parent.bind("<Configure>", lambda e: root.right_canvas.configure(scrollregion=root.right_canvas.bbox("all")))
 
+        # Update Goal Count and Update Progress
         root.goal_count += 1
 
         self.root.progupdate()
 
     def open_goal_tab(self):
-        # init new window
+        # Init new window
         self.new_window = tk.Toplevel()
         self.new_window.geometry("1042x945")
-        self.new_window.title('Test')
+        self.new_window.title('My Task!')
         self.new_window.config(bg=self.root.blue1)
 
         # Init item frames
@@ -92,9 +100,11 @@ class Todo(tk.Frame):
         self.f3.propagate(False)
         self.f3.pack(fill=X, padx=58, expand=True)
 
+        # Return button
         self.rb = tk.Button(self.f3, text='return home!', command=self.new_window.destroy, font=(self.root.mfont, self.root.font_bmed))
         self.rb.pack(side=LEFT, fill=BOTH, expand=TRUE, padx=10, pady=10)
 
+        # Complete toggle button
         self.cb = tk.Button(self.f3, text='', command=self.alt_complete_goal, font=(self.root.mfont, self.root.font_bmed))
         self.cb.pack(side=LEFT, fill=BOTH, expand=TRUE, padx=10, pady=10)
 
@@ -104,6 +114,7 @@ class Todo(tk.Frame):
         else:
             self.cb.configure(text='undo complete!')
 
+        # Delete button
         self.db = tk.Button(self.f3, text='delete!', command=self.alt_delete_goal, font=(self.root.mfont, self.root.font_bmed))
         self.db.pack(side=LEFT, fill=BOTH, expand=TRUE, padx=10, pady=10)
 
@@ -127,12 +138,13 @@ class Todo(tk.Frame):
         else:
             self.cb.configure(text='complete!')
 
-
     def alt_delete_goal(self):
+        # Destroy TopLevel Window and Destroy self
         self.new_window.destroy()
         self.delete_goal()
 
     def delete_goal(self):
+        # Update root goal attributes, destroy self, and update progress
         if self.completed:
             self.root.completed -= 1
         self.root.goal_count -= 1
@@ -148,7 +160,6 @@ class GUI:
 
         # Fonts
         self.mfont = 'Helvetica'
-        # self.mfont = 'Arial'
         self.font_big = 40
         self.font_bmed = 24
         self.font_med = 16
@@ -172,7 +183,7 @@ class GUI:
         self.root = tk.Tk()
 
         self.root.geometry('1920x1080')
-        self.root.title('My Tasks!')
+        self.root.title('blue-todo')
         self.root.config(bg=self.blue1)
 
         img = ImageTk.PhotoImage(Image.open("app/src/icon.png"))
@@ -329,7 +340,7 @@ class GUI:
             err_text.pack(pady=70)
             return
 
-        # Empty
+        # Empty Title
         if title == 0:
             err_window = tk.Toplevel(bg=self.blue1)
             err_window.geometry('400x400')
@@ -355,6 +366,7 @@ class GUI:
         self.task_text.delete('1.0', END)
         self.desc_text.delete('1.0', END)
 
+        # Update Counters
         self.textupdate()
 
     def progupdate(self):
@@ -391,17 +403,17 @@ class GUI:
             print('Application Closed!')
 
     def replace_message(self):
+        # Choose Random Message and configure mm_label
         msg = random.choice(self.messages)
         self.mm_label.configure(text='"' + msg + '"')
 
         print('Updated Message!')
-        # Iterate Every N Seconds
+        # Iterate Every N (25000) Seconds
         self.root.after(25000, self.replace_message)
 
     @staticmethod
     def load_messages(self):
-        # current_dir = os.path.dirname(__file__)
-        # file_path = os.path.join(current_dir, 'src', 'messages.json')
+        # Load messages from src folder
         with open("app/src/messages.json", 'r') as f:
             data = json.load(f)
 
